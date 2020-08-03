@@ -3,12 +3,11 @@ version: '3'
 services:
   db:
     container_name: postgres
-    image: postgres
+    image: postgres:12.3-alpine
     ports:
       - ${DATABASE_PORT}:5432
     environment:
       POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_ROOT_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_DB}
       POSTGRES_HOST_AUTH_METHOD: 'trust'
