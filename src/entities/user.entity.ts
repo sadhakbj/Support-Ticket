@@ -21,7 +21,7 @@ export class UserEntity extends AbstractEntity {
   @Column({ default: '' })
   bio: string
 
-  @Column({ default: null, nullable: true })
+  @Column({ nullable: true })
   image: string | null
 
   @BeforeInsert()
