@@ -1,11 +1,4 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  Matches,
-  MaxLength,
-  MinLength,
-} from 'class-validator'
+import { IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from 'class-validator'
 import { Match } from 'src/http/validations/match.decorator'
 
 export class LoginDTO {
@@ -20,6 +13,10 @@ export class LoginDTO {
 }
 
 export class RegisterDTO {
+  @IsNotEmpty()
+  @IsEmail()
+  email: string
+
   @IsString()
   @MinLength(4)
   @MaxLength(12)

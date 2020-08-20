@@ -1,12 +1,8 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  UnauthorizedException,
-} from '@nestjs/common'
+import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { UserEntity } from './../entities/user.entity'
+import { UserEntity } from './../../entities/user.entity'
 import { LoginDTO, RegisterDTO } from './dto/auth.dto'
 
 @Injectable()
@@ -24,6 +20,8 @@ export class AuthService {
       const token = this.generateToken(user.id, user.username)
       return { user, token }
     } catch (error) {
+      console.log(error)
+
       throw new InternalServerErrorException()
     }
   }
@@ -31,7 +29,10 @@ export class AuthService {
   async authenticate({ email, password }: LoginDTO) {
     try {
       const user = await this.userRepository.findOneOrFail({ where: { email } })
+      console.log(user)
+
       const passwordIsValid = await user.comparePassword(password)
+
       if (!passwordIsValid) {
         throw new UnauthorizedException('Invalid login credentials.')
       }

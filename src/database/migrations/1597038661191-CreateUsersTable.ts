@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm'
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
 import { DBTable } from './../../constants/dbtable'
 
 export class CreateUsersTable1597038661191 implements MigrationInterface {
@@ -43,6 +38,12 @@ export class CreateUsersTable1597038661191 implements MigrationInterface {
           {
             name: 'image',
             type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'bio',
+            type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'createdAt',
