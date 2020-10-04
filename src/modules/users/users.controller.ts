@@ -7,33 +7,52 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  Res,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { Response } from 'express'
 import { UserEntity } from './../../entities/user.entity'
+import { BaseController } from './../../http/controllers/base.controller'
 import { AuthUser } from './../auth/authuser.decorator'
 import { UpdateUserDto } from './users.dto'
 import { UsersService } from './users.service'
 
 @Controller('users')
 @UseGuards(AuthGuard())
-export class UsersController {
-  constructor(private userService: UsersService) {}
-
-  @Get('')
-  async getAllUsers() {
-    return await this.userService.getAll()
+@ApiTags('Users')
+export class UsersController extends BaseController {
+  constructor(private userService: UsersService) {
+    super()
   }
 
-  @Get('current-user')
-  async findByUserName(@AuthUser() { username }: UserEntity) {
-    return await this.userService.findByUserName(username)
+  @Get('/')
+  @ApiBearerAuth()
+  async getAllUsers(@Res() res: Response): Promise<any> {
+    const users = await this.userService.getAll()
+
+    return this.sendSuccessResponse(res, 'Successfully fetched users', users)
   }
 
-  @Put(':id')
+  @Get('/current-user')
+  async findByUserName(@AuthUser() { username }: UserEntity, @Res() res: Response) {
+    const currentUser = await this.userService.findByUserName(username)
+
+    return this.sendSuccessResponse(res, 'Successfully fetched current user', currentUser)
+  }
+
+  @Get('/:id')
+  async getUserById(@Param('id') id: string, @Res() res: Response) {
+    const user = await this.userService.findUserById(id)
+
+    return this.sendSuccessResponse(res, 'Successfully fetched user details.', user)
+  }
+
+  @Put('/:id')
   async updateUser(
-    @Param('id') id: any,
+    @Param('id') id: string,
     @Body(new ValidationPipe({ transform: true, whitelist: true })) data: UpdateUserDto,
   ) {
     return await this.userService.updateUser(id, data)

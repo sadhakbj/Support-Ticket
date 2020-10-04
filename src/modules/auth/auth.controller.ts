@@ -1,20 +1,30 @@
-import { Body, Controller, Get, Post, UseGuards, ValidationPipe } from '@nestjs/common'
+import { Body, Controller, Get, Post, Res, UseGuards, ValidationPipe } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
+import { ApiTags } from '@nestjs/swagger'
+import { Response } from 'express'
+import { BaseController } from './../../http/controllers/base.controller'
 import { AuthService } from './auth.service'
 import { LoginDTO, RegisterDTO } from './dto/auth.dto'
 
 @Controller('auth')
-export class AuthController {
-  constructor(private authService: AuthService) {}
+@ApiTags('Authentication')
+export class AuthController extends BaseController {
+  constructor(private authService: AuthService) {
+    super()
+  }
 
   @Post('/register')
-  register(@Body(ValidationPipe) userData: RegisterDTO): any {
-    return this.authService.register(userData)
+  async register(@Body(ValidationPipe) userData: RegisterDTO, @Res() res: Response): Promise<any> {
+    const user = await this.authService.register(userData)
+
+    return this.sendSuccessResponse(res, 'User registerd successfully.', user)
   }
 
   @Post('/login')
-  login(@Body(ValidationPipe) credentials: LoginDTO): any {
-    return this.authService.authenticate(credentials)
+  async login(@Body(ValidationPipe) credentials: LoginDTO, @Res() res: Response): Promise<any> {
+    const user = await this.authService.authenticate(credentials)
+
+    return this.sendSuccessResponse(res, 'User logged in successfully.', user)
   }
 
   @Get('/test')
