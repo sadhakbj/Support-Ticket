@@ -1,16 +1,16 @@
-version: '3'
+version: "3"
 
 services:
   db:
     container_name: postgres
     image: postgres:12.3-alpine
     ports:
-      - ${DATABASE_PORT}:5432
+      - ${TYPEORM_PORT}:5432
     environment:
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_DB}
-      POSTGRES_HOST_AUTH_METHOD: 'trust'
+      POSTGRES_USER: ${TYPEORM_USERNAME}
+      POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
+      POSTGRES_DB: ${TYPEORM_DATABASE}
+      POSTGRES_HOST_AUTH_METHOD: "trust"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
 
