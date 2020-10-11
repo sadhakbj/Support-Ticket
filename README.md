@@ -1,12 +1,11 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Support Ticket API
+Full stack web application / boilerplate using
+[Nest](https://github.com/nestjs/nest) framework TypeScript.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-  
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Requirements:
+Make sure you have following nodejs dependencies installed on your machine:
+- yarn or `npm install -g yarn`
+- ts-node or `npm install -g ts-node`
 
 ## Install all the dependencies
 
@@ -23,16 +22,15 @@ $ cp .env.example .env
 - Update database configurations accordingly and if using docker for postgres:
 
 ```bash
-$ docker-compose up -d // Make sure to check docker-compose.yml and set same configurations in .env file
+$ docker-compose up -d
 ```
 
 ## Running and generation of migration using typeorm:
-
-- Set `DATABASE_SYNCHRONIZE` to `false` in `.env` file if you want to run migrations manually.
+****
 - Run the migration using command: `yarn migrate` or `yarn typeorm migration:run`
 - Rollback the migration using command: `yarn migrate:rollback` or `yarn typeorm migration:revert`
 - Automatically generate migration for your entity: `yarn typeorm migration:generate -n NameOfYourMigration`
-- Create a migration for code first approach: `yarn typeorm migration:create -n NameOfYourMigration`
+- Create a migration for code first approach: `yarn migration:make -n CreateBlogsTable`
 
 ### Refer to TypeORM's official documentation for details.
 
@@ -48,6 +46,7 @@ $ yarn start:dev
 # production mode
 $ yarn start:prod
 ```
+- Access the api docs at: `http://localhost:8000/api/docs`
 
 ## Test
 
@@ -62,16 +61,3 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

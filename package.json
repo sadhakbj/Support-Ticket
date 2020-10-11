@@ -21,7 +21,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migrate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run",
-    "migrate:rollback": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert"
+    "migrate:rollback": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert",
+    "migration:status": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:show",
+    "migration:make": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
